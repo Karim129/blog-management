@@ -22,11 +22,10 @@ class PostController extends Controller
             $posts = Post::query()->paginate(25);
 
             return view('Posts.index', ['posts' => $posts]);
-        } else {
-            $posts = Post::query()->where('user_id', auth()->user()->id)->paginate(25);
-
-            return view('Posts.index', ['posts' => $posts]);
         }
+        $posts = Post::query()->where('user_id', auth()->user()->id)->paginate(25);
+
+        return view('Posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -36,9 +35,9 @@ class PostController extends Controller
     {
         if (auth()->user()->can('create', Post::class)) {
             return view('Posts.create');
-        } else {
-            return redirect()->back()->with('error', 'You do not have permission to view this page.');
         }
+
+        return redirect()->back()->with('error', 'You do not have permission to view this page.');
     }
 
     /**
@@ -72,6 +71,8 @@ class PostController extends Controller
         if (auth()->user()->can('view', $post)) {
             return view('Posts.show', ['post' => $post]);
         }
+
+        return null;
     }
 
     /**
@@ -82,6 +83,8 @@ class PostController extends Controller
         if (auth()->user()->can('update', $post)) {
             return view('Posts.edit', ['post' => $post]);
         }
+
+        return null;
     }
 
     /**
@@ -117,6 +120,8 @@ class PostController extends Controller
 
             return redirect()->route('posts.index');
         }
+
+        return null;
     }
 
     public function export()

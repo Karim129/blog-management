@@ -28,7 +28,7 @@ class ImageService
         return "storage/$folder/$imagePath";
     }
 
-    public static function delete($image)
+    public static function delete($image): bool
     {
         if (file_exists($image)) {
             unlink(public_path($image));

@@ -27,11 +27,7 @@ class PostPolicy
             return true;
         }
 
-        if ($user->can('view own blog posts') && $post->user_id === $user->id) {
-            return true;
-        }
-
-        return false;
+        return $user->can('view own blog posts') && $post->user_id === $user->id;
     }
 
     /**
@@ -51,11 +47,7 @@ class PostPolicy
             return true;
         }
 
-        if ($user->can('edit blog posts') && $user->hasRole('Admin')) {
-            return true;
-        }
-
-        return false;
+        return $user->can('edit blog posts') && $user->hasRole('Admin');
     }
 
     /**
@@ -67,11 +59,7 @@ class PostPolicy
             return true;
         }
 
-        if ($user->can('delete blog posts') && $user->hasRole('Admin')) {
-            return true;
-        }
-
-        return false;
+        return $user->can('delete blog posts') && $user->hasRole('Admin');
     }
 
     /**
@@ -91,10 +79,6 @@ class PostPolicy
             return true;
         }
 
-        if ($user->can('export own blog posts') && $post && $post->user_id === $user->id) {
-            return true;
-        }
-
-        return false;
+        return $user->can('export own blog posts') && $post && $post->user_id === $user->id;
     }
 }

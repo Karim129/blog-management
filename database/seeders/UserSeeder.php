@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
             $user2->assignRole('Author');
 
             $user->assignRole('Admin');
-            User::factory(10)->create()->each(function ($user) {
+            User::factory(10)->create()->each(function ($user): void {
                 $user->assignRole('Author');
             });
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // dd($e);
         }
     }

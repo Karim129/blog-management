@@ -12,7 +12,7 @@ class PostSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
         $users = User::all();
 

@@ -18,9 +18,13 @@ class UserPolicy
     /**
      * Determine whether the user can view a specific user.
      */
-    public function view(User $user, User $model)
+    public function view(User $user, User $model): bool
     {
-        return $user->can('manage users') || $user->id === $model->id;
+        if ($user->can('manage users')) {
+            return true;
+        }
+
+        return $user->id === $model->id;
     }
 
     /**
@@ -34,15 +38,19 @@ class UserPolicy
     /**
      * Determine whether the user can update a specific user.
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User $model): bool
     {
-        return $user->can('manage users') || $user->id === $model->id;
+        if ($user->can('manage users')) {
+            return true;
+        }
+
+        return $user->id === $model->id;
     }
 
     /**
      * Determine whether the user can delete a specific user.
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, User $model): bool
     {
         return $user->can('manage users') && $user->id !== $model->id;
     }

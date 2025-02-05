@@ -17,14 +17,12 @@ class PostsExport implements FromCollection, WithHeadings
             $query->where('user_id', Auth::id());
         }
 
-        return $query->get()->map(function ($post) {
-            return [
-                'Title' => $post->title,
-                'Content' => $post->content,
-                'Author Name' => $post->user->name,
-                'Created At' => $post->created_at->format('Y-m-d H:i:s'),
-            ];
-        });
+        return $query->get()->map(fn ($post): array => [
+            'Title' => $post->title,
+            'Content' => $post->content,
+            'Author Name' => $post->user->name,
+            'Created At' => $post->created_at->format('Y-m-d H:i:s'),
+        ]);
     }
 
     public function headings(): array
